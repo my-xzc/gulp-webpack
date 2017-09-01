@@ -8,15 +8,17 @@ var srcDir = path.resolve(process.cwd(), 'src');
 function getEntry() {
     var jsPath = path.resolve(srcDir, 'js');
     var dirs = fs.readdirSync(jsPath);
-    var matchs = [], files = {};
+    console.log(jsPath);
+    var matchs = [],
+        files = {},
+        filePath = [];
     dirs.forEach(function (item) {
         matchs = item.match(/(.+)\.js$/);
-        console.log("matchs"+matchs);
         if (matchs) {
             files[matchs[1]] = path.resolve(srcDir, 'js', item);
         }
     });
-    console.log("files"+JSON.stringify(files));
+    console.log("files" + JSON.stringify(files));
     return files;
 }
 
@@ -42,10 +44,10 @@ module.exports = {
         aggregateTimeout: 300,
         poll: 1000,
         ignored: /node_modules/
-      },
+    },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name:'common'
+            name: 'common'
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
